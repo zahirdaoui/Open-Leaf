@@ -28,7 +28,7 @@ public class UserRowMapper implements RowMapper<User> {
         user.setPhoneVerified(rs.getBoolean("phone_verified"));
         user.setCreatedDate(rs.getObject("created_date", LocalDateTime.class));
         user.setLastModifiedDate(rs.getObject("last_modified_date", LocalDateTime.class));
-		return null;
+		return user;
 	}
 
 }
