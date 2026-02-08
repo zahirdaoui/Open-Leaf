@@ -3,14 +3,17 @@ package com.open.leaf.user;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.open.leaf.adress.Adress;
+import com.open.leaf.engagement.Engagement;
+
 
 
 public class User implements UserDetails{
-	
 	
 	private String id;
 	private String firstName;
@@ -21,53 +24,17 @@ public class User implements UserDetails{
     private LocalDate dateOfBirth;
     private boolean enabled;
     private boolean locked;
-    private boolean credentialsExpired;
     private boolean emailVerified;
     private String profilePictureUrl;
-    private boolean phoneVerified;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
+    private List<Adress> adress;
     
     
-    
-    
-	public User() {
-		super();
-	}
-
-
-
-
-
-	public User(String firstName, String lastName, String email, String phoneNumber, String password,
-			LocalDate dateOfBirth, boolean enabled, boolean locked, boolean credentialsExpired, boolean emailVerified,
-			String profilePictureUrl, boolean phoneVerified, LocalDateTime createdDate,
-			LocalDateTime lastModifiedDate) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.password = password;
-		this.dateOfBirth = dateOfBirth;
-		this.enabled = enabled;
-		this.locked = locked;
-		this.credentialsExpired = credentialsExpired;
-		this.emailVerified = emailVerified;
-		this.profilePictureUrl = profilePictureUrl;
-		this.phoneVerified = phoneVerified;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-	}
-	
-	
-	
-	
-	
 	public User(String id, String firstName, String lastName, String email, String phoneNumber, String password,
-			LocalDate dateOfBirth, boolean enabled, boolean locked, boolean credentialsExpired, boolean emailVerified,
-			String profilePictureUrl, boolean phoneVerified, LocalDateTime createdDate,
-			LocalDateTime lastModifiedDate) {
+			LocalDate dateOfBirth, boolean enabled, boolean locked, boolean emailVerified, String profilePictureUrl,
+			LocalDateTime createdDate, LocalDateTime lastModifiedDate, List<Adress> adress,
+			List<Engagement> engagement) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -78,28 +45,55 @@ public class User implements UserDetails{
 		this.dateOfBirth = dateOfBirth;
 		this.enabled = enabled;
 		this.locked = locked;
-		this.credentialsExpired = credentialsExpired;
 		this.emailVerified = emailVerified;
 		this.profilePictureUrl = profilePictureUrl;
-		this.phoneVerified = phoneVerified;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
+		this.adress = adress;
+		this.engagement = engagement;
 	}
 
-	
+
     
     
-    @Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + ", password=" + password + ", dateOfBirth=" + dateOfBirth
-				+ ", enabled=" + enabled + ", locked=" + locked + ", credentialsExpired=" + credentialsExpired
-				+ ", emailVerified=" + emailVerified + ", profilePictureUrl=" + profilePictureUrl + ", phoneVerified="
-				+ phoneVerified + ", createdDate=" + createdDate + ", lastModifiedDate=" + lastModifiedDate + "]";
+    
+    public List<Adress> getAdress() {
+		return adress;
 	}
 
-	
+
+
+
+
+	public void setAdress(List<Adress> adress) {
+		this.adress = adress;
+	}
+
+
+
+
+
+	public List<Engagement> getEngagement() {
+		return engagement;
+	}
+
+
+
+
+
+	public void setEngagement(List<Engagement> engagement) {
+		this.engagement = engagement;
+	}
+
+	private List<Engagement> engagement;
+
     
+	public User() {
+		super();
+	}
+
+
+
     public String getId() {
 		return id;
 	}
@@ -164,13 +158,7 @@ public class User implements UserDetails{
 		this.locked = locked;
 	}
 
-	public boolean isCredentialsExpired() {
-		return credentialsExpired;
-	}
 
-	public void setCredentialsExpired(boolean credentialsExpired) {
-		this.credentialsExpired = credentialsExpired;
-	}
 
 	public boolean isEmailVerified() {
 		return emailVerified;
@@ -186,14 +174,6 @@ public class User implements UserDetails{
 
 	public void setProfilePictureUrl(String profilePictureUrl) {
 		this.profilePictureUrl = profilePictureUrl;
-	}
-
-	public boolean isPhoneVerified() {
-		return phoneVerified;
-	}
-
-	public void setPhoneVerified(boolean phoneVerified) {
-		this.phoneVerified = phoneVerified;
 	}
 
 	public LocalDateTime getCreatedDate() {
@@ -216,9 +196,6 @@ public class User implements UserDetails{
 		this.password = password;
 	}
 
-
-
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -237,4 +214,12 @@ public class User implements UserDetails{
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + ", password=" + password + ", dateOfBirth=" + dateOfBirth
+				+ ", enabled=" + enabled + ", locked=" + locked + ", emailVerified=" + emailVerified
+				+ ", profilePictureUrl=" + profilePictureUrl + ", createdDate=" + createdDate + ", lastModifiedDate="
+				+ lastModifiedDate + ", adress=" + adress + ", engagement=" + engagement + "]";
+	}
 }

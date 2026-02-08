@@ -22,10 +22,8 @@ public class UserRowMapper implements RowMapper<User> {
         user.setDateOfBirth(rs.getObject("date_of_birth", LocalDate.class));
         user.setEnabled(rs.getBoolean("enabled"));
         user.setLocked(rs.getBoolean("locked"));
-        user.setCredentialsExpired(rs.getBoolean("credentials_expired"));
         user.setEmailVerified(rs.getBoolean("email_verified"));
         user.setProfilePictureUrl(rs.getString("profile_picture_url"));
-        user.setPhoneVerified(rs.getBoolean("phone_verified"));
         user.setCreatedDate(rs.getObject("created_date", LocalDateTime.class));
         user.setLastModifiedDate(rs.getObject("last_modified_date", LocalDateTime.class));
 		return user;
