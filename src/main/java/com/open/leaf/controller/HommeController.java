@@ -1,5 +1,7 @@
 package com.open.leaf.controller;
 
+import java.util.Locale;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,7 +10,8 @@ public class HommeController {
 	
 	
 	@GetMapping
-	public String index() {
+	public String index(Locale locale) {
+		System.out.println(locale.getLanguage());
 		return "index";
 	}
 	
