@@ -23,7 +23,7 @@ public class LangConfig implements WebMvcConfigurer{
 		                   "lang/index/messages_index",
 		                   "lang/login/messages_login",
 		                   "lang/signup/messages_login"
-		                  };
+		                  };	
 	
 	@Bean
 	public MessageSource messageSource() {
