@@ -22,7 +22,7 @@ public class LangConfig implements WebMvcConfigurer{
 	 String[] basenames = {
 		                   "lang/index/messages_index",
 		                   "lang/login/messages_login",
-		                   "lang/signup/messages_login"
+		                   "lang/signup/messages_signup"
 		                  };	
 	
 	@Bean
@@ -30,6 +30,7 @@ public class LangConfig implements WebMvcConfigurer{
 	    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 	    messageSource.setBasenames(basenames);
 	    messageSource.setDefaultEncoding("UTF-8");
+	    messageSource.setFallbackToSystemLocale(false);
 	    return messageSource;
 	}
 	

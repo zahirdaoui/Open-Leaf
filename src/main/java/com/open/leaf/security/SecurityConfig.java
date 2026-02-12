@@ -1,13 +1,24 @@
 package com.open.leaf.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.open.leaf.user.UserService;
+
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
+	@Autowired
+	private UserService userService;
 	
 	private String[] STATIC_REAOURCES = {
 	        "/css/**",
@@ -16,7 +27,6 @@ public class SecurityConfig {
 	        "/assets/**",
 	        "/webjars/**"
 	    };
-	
 	
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,17 +46,27 @@ public class SecurityConfig {
 	
 	
 	@Bean
-	public UserDetailsService users() {
-	    return new InMemoryUserDetailsManager(
-	        User.withUsername("admin")
-	            .password("{noop}admin123")
-	            .roles("ADMIN")
-	            .build(),
-	        User.withUsername("user")
-	            .password("{noop}user123")
-	            .roles("USER")
-	            .build()
-	    );
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
+	
+	 // 2.DaoAuthenticationProvider using your CustomUserDetailService
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(
+            UserService userService,
+            PasswordEncoder passwordEncoder) {
+    	
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
+    }
+    
+    //3.AuthenticationManager with your provider
+    @Bean
+    public AuthenticationManager authenticationManager(DaoAuthenticationProvider authProvider) {
+        return new ProviderManager(authProvider);
+    }
+
 
 }

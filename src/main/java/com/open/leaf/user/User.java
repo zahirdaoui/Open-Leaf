@@ -10,12 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.open.leaf.adress.Adress;
 import com.open.leaf.engagement.Engagement;
+import com.open.leaf.role.Role;
 
 
 
 public class User implements UserDetails{
 	
-	private String id;
+	private Integer id;
 	private String firstName;
     private String lastName;
     private String email;
@@ -29,13 +30,13 @@ public class User implements UserDetails{
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
     private List<Adress> adress;
+    private List<Role> roles;
+    //roles
     
-    
-	public User(String id, String firstName, String lastName, String email, String phoneNumber, String password,
+	public User(Integer id, String firstName, String lastName, String email, String phoneNumber, String password,
 			LocalDate dateOfBirth, boolean enabled, boolean locked, boolean emailVerified, String profilePictureUrl,
 			LocalDateTime createdDate, LocalDateTime lastModifiedDate, List<Adress> adress,
 			List<Engagement> engagement) {
-		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -51,6 +52,20 @@ public class User implements UserDetails{
 		this.lastModifiedDate = lastModifiedDate;
 		this.adress = adress;
 		this.engagement = engagement;
+	}
+	public User(Integer id, String firstName, String lastName, String email, String phoneNumber, String password,
+			LocalDate dateOfBirth, boolean enabled, boolean locked, boolean emailVerified, String profilePictureUrl) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
+		this.dateOfBirth = dateOfBirth;
+		this.enabled = enabled;
+		this.locked = locked;
+		this.emailVerified = emailVerified;
+		this.profilePictureUrl = profilePictureUrl;
 	}
 
 
@@ -78,9 +93,6 @@ public class User implements UserDetails{
 	}
 
 
-
-
-
 	public void setEngagement(List<Engagement> engagement) {
 		this.engagement = engagement;
 	}
@@ -94,11 +106,11 @@ public class User implements UserDetails{
 
 
 
-    public String getId() {
+    public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -205,7 +217,7 @@ public class User implements UserDetails{
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override

@@ -6,13 +6,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.open.leaf.role.RoleService;
+
 @Controller
 public class HommeController {
 	
 	private JdbcTemplate jdbcTemplate;
-	public HommeController(JdbcTemplate jdbcTemplate) {
+	private RoleService roleService;
+	
+	public HommeController(JdbcTemplate jdbcTemplate , RoleService roleService) {
 		
 		this.jdbcTemplate = jdbcTemplate;
+		this.roleService = roleService;
 		
 	}
 
@@ -31,6 +36,10 @@ public class HommeController {
 	
 	@GetMapping("home")
 	public String home() {
-		return "home";
+		System.out.println("============================================================================");
+		System.out.println(roleService.getRoleByName("ADMIN"));
+
+		System.out.println("============================================================================");
+		return "auth/sign-in";
 	}
 }
