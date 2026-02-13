@@ -5,10 +5,12 @@ import java.util.Locale;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.open.leaf.role.RoleService;
 
 @Controller
+@RequestMapping(value ="test")
 public class HommeController {
 	
 	private JdbcTemplate jdbcTemplate;

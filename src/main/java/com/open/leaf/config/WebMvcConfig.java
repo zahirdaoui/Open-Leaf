@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
 	
 	
-	// <bean class="LocalValidatorFactoryBean"/>
+	/*// <bean class="LocalValidatorFactoryBean"/>
     @Bean
     public LocalValidatorFactoryBean validator() {
         return new LocalValidatorFactoryBean();
@@ -32,6 +32,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public org.springframework.validation.Validator getValidator() {
         return validator();
-    }
+    }*/
 
 }

@@ -16,9 +16,18 @@
         <div class="col-8">
           <div class="card">
             <div class="card-header pb-0">
-              <div class="d-flex align-items-center">
+              <div class="d-flex align-items-center justify-content-between">
                 <p class="mb-0" th:text="#{signup.welcome}">Welcome</p>
-                <button class="btn btn-primary btn-sm ms-auto" th:text="#{signup.sign}">Sign In</button>
+                <div class="btn-group flex-end">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+				    <i class="fa-solid fa-language text-white"></i> Language
+				  </button>
+				  <ul class="dropdown-menu bg-transparent">
+				    <li><a th:href="@{?lang=fr}" class="btn btn-primary btn-sm ms-auto"><span class="fi fi-fr"></span> Fr</a></li>
+				    <li><a th:href="@{?lang=en}" class="btn btn-primary btn-sm ms-auto"><span class="fi fi-us"></span> En</a></li>
+				  </ul>
+				</div>
+                
               </div>
             </div>
           <form action="" method="post">
@@ -118,7 +127,7 @@
                   <div class="col-4">
                     <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2" th:text="#{signup.sign}">Sign up</button>
                   </div>
-                  <p class="text-sm mt-3 mb-0" th:text="#{signup.linkAccount}">Already have an account?</p><a href="/login" class="text-dark font-weight-bolder" th:text="#{signup.signin}">Sign in</a>
+                  <p class="text-sm mt-3 mb-0"><span th:text="#{signup.linkAccount}">Already have an account?</span> <a th:href="@{/login}" class="text-dark font-weight-bolder" th:text="#{signup.signin}">  Sign in</a></p>
               </div>
               </div>
           </div>

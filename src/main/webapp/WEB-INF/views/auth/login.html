@@ -11,30 +11,67 @@
   <main class="main-content mt-0">
     <section>
       <div class="page-header min-vh-100">
+      
         <div class="container">
           <div class="row">
+          
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+              <div class="btn-group w-50 mx-4">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+				    <i class="fa-solid fa-language text-white"></i> Language
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a th:href="@{?lang=fr}" class="btn btn-primary btn-sm ms-auto w-100"><span class="fi fi-fr"></span> Fr</a></li>
+				    <li><a th:href="@{?lang=en}" class="btn btn-primary btn-sm ms-auto w-100"><span class="fi fi-us"></span> En</a></li>
+				  </ul>
+              </div>
               <div class="card card-plain">
                 <div class="card-header pb-0 text-start">
                   <h4 class="font-weight-bolder" th:text="#{login.title}">Sign In</h4>
                   <p class="mb-0" th:text="#{login.info}">Enter your username and password to sign in</p>
                 </div>
                 <div class="card-body">
-	                <div class="alert alert-danger text-white" role="alert" th:text="#{login.failed}">
+	                <div class="alert alert-danger text-white d-none" role="alert" th:text="#{login.failed}">
 					  A simple danger alert—check it out!
 					</div>
-                  <form role="form" action="" method="">
+                  <form role="form" th:action="@{/login}" th:object="${loginForm}" method="post">
                     <div class="mb-3">
-                      <input type="text" name="username" class="form-control form-control-lg border-danger" th:placeholder="#{login.userplace}" aria-label="UserName">
-                      <small th:text="#{login.email.required}" class="text-danger"></small>
-                      
+                      <input 
+                             type="text" 
+                             th:field="*{identifier}" 
+                             class="form-control form-control-lg" 
+                             th:placeholder="#{login.userplace}" 
+                             aria-label="UserName"
+                             th:classappend="${#fields.hasErrors('identifier')} ? 'border-danger' : ''"
+                             >
+                     <!--  <div th:if="${#fields.hasErrors('identifier')}"
+                             th:errors="*{identifier[0]}">
+                       </div>-->
+                      <div th:if="${#fields.hasErrors('identifier')}"  class="text-danger"
+						     th:text="${#fields.errors('identifier')[0]}">
+						</div>
                     </div>
                     <div class="mb-3">
-                      <input type="password" class="form-control form-control-lg border-danger" th:placeholder="#{login.password}" aria-label="Password">
-                      <small th:text="#{login.password.required}" class="text-danger"></small>
+                      <input 
+                             type="password" 
+                             th:field="*{password}" 
+                             class="form-control form-control-lg" 
+                             th:placeholder="#{login.password}" 
+                             aria-label="Password"
+                             th:classappend="${#fields.hasErrors('password')} ? 'border-danger' : ''"
+                             >
+                      <div   class="text-danger"
+                             th:if="${#fields.hasErrors('password')}"
+				             th:errors="*{password}">
+				       </div>
                     </div>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" name="rememberMe" type="checkbox" id="rememberMe">
+                    
+                      <input class="form-check-input" 
+                             name="rememberMe" 
+                             type="checkbox" 
+                             id="rememberMe"
+                       >
                       <label class="form-check-label" for="rememberMe" th:text="#{login.rememberme}">Remember me</label>
                     </div>
                     <div class="text-center">
@@ -46,7 +83,7 @@
                   <p class="mb-4 text-sm mx-auto">
                   <span th:text="#{login.titleCreate}">Don't have an account?</span>
                     
-                    <a href="#" class="text-primary text-gradient font-weight-bold" th:text="#{login.signup}">Sign up</a>
+                    <a th:href="@{/register}" class="text-primary text-gradient font-weight-bold" th:text="#{login.signup}">Sign up</a>
                   </p>
                 </div>
               </div>
