@@ -6,5 +6,4 @@ public class InsertUserForm {
 	
 	@NotEmpty(message ="the name most be not null")
 	private String firstName;
-
 }

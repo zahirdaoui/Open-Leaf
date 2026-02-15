@@ -4,7 +4,7 @@ import com.open.leaf.user.User;
 
 public interface AuthenticationService {
 	
-	    User login(User user);
+	    User login(LoginForm loginForm);
 
 	    void register(User user);
 

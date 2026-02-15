@@ -13,10 +13,10 @@ public class UserRowMapper implements RowMapper<User> {
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 		User user = new User();
 		user.setId(rs.getInt("id"));
-		user.setFirstName(rs.getString("firstName"));
-		user.setLastName(rs.getString("lastName"));
+		user.setFirstName(rs.getString("first_name"));
+		user.setLastName(rs.getString("last_name"));
 		user.setEmail(rs.getString("email"));
-		user.setPhoneNumber(rs.getString("phoneNumber"));
+		user.setPhoneNumber(rs.getString("phone_number"));
 		user.setPassword(rs.getString("password"));
 		user.setPassword(rs.getString("password"));
         user.setDateOfBirth(rs.getObject("date_of_birth", LocalDate.class));

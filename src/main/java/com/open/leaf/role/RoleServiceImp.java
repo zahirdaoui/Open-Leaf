@@ -37,7 +37,6 @@ public class RoleServiceImp implements RoleService {
 					+"roles INNER JOIN user_roles ON roles.id = user_roles.role_id"
 					+" WHERE user_roles.user_id = ?";
 		List<Role> roles = jdbcTemplate.query(sql, new RoleMapper(), user_id);
-		
 		return roles;
 	}
 

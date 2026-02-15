@@ -16,44 +16,47 @@
           <div class="row">
           
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
-              <div class="btn-group w-50 mx-4">
+              <div class="btn-group flex-end">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 				    <i class="fa-solid fa-language text-white"></i> Language
 				  </button>
-				  <ul class="dropdown-menu">
-				    <li><a th:href="@{?lang=fr}" class="btn btn-primary btn-sm ms-auto w-100"><span class="fi fi-fr"></span> Fr</a></li>
-				    <li><a th:href="@{?lang=en}" class="btn btn-primary btn-sm ms-auto w-100"><span class="fi fi-us"></span> En</a></li>
+				  <ul class="dropdown-menu bg-transparent">
+				    <li><a th:href="@{?lang=fr}" class="btn btn-primary btn-sm ms-auto"><span class="fi fi-fr"></span> Fr</a></li>
+				    <li><a th:href="@{?lang=en}" class="btn btn-primary btn-sm ms-auto"><span class="fi fi-us"></span> En</a></li>
 				  </ul>
-              </div>
+				</div>
               <div class="card card-plain">
                 <div class="card-header pb-0 text-start">
                   <h4 class="font-weight-bolder" th:text="#{login.title}">Sign In</h4>
                   <p class="mb-0" th:text="#{login.info}">Enter your username and password to sign in</p>
                 </div>
                 <div class="card-body">
-	                <div class="alert alert-danger text-white d-none" role="alert" th:text="#{login.failed}">
-					  A simple danger alert—check it out!
+	                <div  th:if="${loginError}"
+	                      th:text="#{login.failed}" 
+	                      class="alert alert-danger text-white" role="alert">
 					</div>
-                  <form role="form" th:action="@{/login}" th:object="${loginForm}" method="post">
+                  <form role="form" th:action="@{/login}" th:object="${loginForm}" method="POST">
+                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <div class="mb-3">
                       <input 
                              type="text" 
-                             th:field="*{identifier}" 
+                             th:field="*{email}" 
                              class="form-control form-control-lg" 
                              th:placeholder="#{login.userplace}" 
                              aria-label="UserName"
-                             th:classappend="${#fields.hasErrors('identifier')} ? 'border-danger' : ''"
+                             th:classappend="${#fields.hasErrors('email')} ? 'border-danger' : ''"
                              >
                      <!--  <div th:if="${#fields.hasErrors('identifier')}"
                              th:errors="*{identifier[0]}">
                        </div>-->
-                      <div th:if="${#fields.hasErrors('identifier')}"  class="text-danger"
-						     th:text="${#fields.errors('identifier')[0]}">
+                      <div th:if="${#fields.hasErrors('email')}"  class="text-danger"
+						     th:text="${#fields.errors('email')[0]}">
 						</div>
                     </div>
                     <div class="mb-3">
                       <input 
-                             type="password" 
+                             type="password"
+                             name="password"
                              th:field="*{password}" 
                              class="form-control form-control-lg" 
                              th:placeholder="#{login.password}" 
@@ -68,7 +71,7 @@
                     <div class="form-check form-switch">
                     
                       <input class="form-check-input" 
-                             name="rememberMe" 
+                             name="remember-me"
                              type="checkbox" 
                              id="rememberMe"
                        >

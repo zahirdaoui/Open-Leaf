@@ -22,11 +22,11 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @ComponentScan(basePackages = "com.open.leaf")
 public class LangConfig implements WebMvcConfigurer{
 	
-	 String[] basenames = {
-			     "lang.index.messages_index",
-		        "lang.login.messages_login",
-		        "lang.signup.messages_signup"
-		    };	
+	String[] basenames = {
+		    "lang/index/messages_index",
+		    "lang/login/messages_login",
+		    "lang/signup/messages_signup"
+		};
 	
 	@Bean
 	public MessageSource messageSource() {

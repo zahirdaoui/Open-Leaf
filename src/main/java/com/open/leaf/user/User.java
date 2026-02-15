@@ -3,6 +3,7 @@ package com.open.leaf.user;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -10,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.open.leaf.adress.Adress;
 import com.open.leaf.engagement.Engagement;
-import com.open.leaf.role.Role;
+
 
 
 
@@ -30,8 +31,9 @@ public class User implements UserDetails{
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
     private List<Adress> adress;
-    private List<Role> roles;
-    //roles
+   
+    private Collection<? extends GrantedAuthority> authorities;
+    
     
 	public User(Integer id, String firstName, String lastName, String email, String phoneNumber, String password,
 			LocalDate dateOfBirth, boolean enabled, boolean locked, boolean emailVerified, String profilePictureUrl,
@@ -207,11 +209,16 @@ public class User implements UserDetails{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	 // getters & setters
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return authorities != null ? authorities : Collections.emptyList();
 	}
 
 	@Override
@@ -223,7 +230,7 @@ public class User implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return email;
 	}
 
 	@Override

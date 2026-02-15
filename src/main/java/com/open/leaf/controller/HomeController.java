@@ -8,15 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.open.leaf.role.RoleService;
+import com.open.leaf.user.User;
+import com.open.leaf.user.UserRowMapper;
 
 @Controller
-@RequestMapping(value ="test")
-public class HommeController {
+@RequestMapping("/homepage")
+public class HomeController {
 	
 	private JdbcTemplate jdbcTemplate;
 	private RoleService roleService;
 	
-	public HommeController(JdbcTemplate jdbcTemplate , RoleService roleService) {
+	public HomeController(JdbcTemplate jdbcTemplate , RoleService roleService) {
 		
 		this.jdbcTemplate = jdbcTemplate;
 		this.roleService = roleService;
@@ -26,6 +28,7 @@ public class HommeController {
 	@GetMapping
 	public String index(Locale locale) {
 		System.out.println(locale.getLanguage());
+		System.out.println("============================================================================");
 		try {
             Integer result = jdbcTemplate.queryForObject("SELECT 1", Integer.class);
             System.out.println("✅ DB connected! Result = " + result);
@@ -38,10 +41,14 @@ public class HommeController {
 	
 	@GetMapping("home")
 	public String home() {
-		System.out.println("============================================================================");
-		System.out.println(roleService.getRoleByName("ADMIN"));
+		
+		User  user= new User();
+		System.out.println("===================================bbbbbbbbbbbbbbbbbbbbbbbb=========================================");
+		user = jdbcTemplate.queryForObject("SELECT id , email , password FROM users WHERE email=?",new UserRowMapper(),"daoz@gmail.com");
+		System.out.println("==================================bbbbbbbbbbbbbbbb==========================================");
+		System.out.println(user);
 
 		System.out.println("============================================================================");
-		return "auth/sign-in";
+		return "index";
 	}
 }
